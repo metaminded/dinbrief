@@ -1,0 +1,6 @@
+pkg
+dinbrief-*.gem
+Gemfile.lock
+.DS_Store
+.bundle
+spec/dummy_app/tmp/*
