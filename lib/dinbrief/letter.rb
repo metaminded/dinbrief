@@ -5,30 +5,26 @@ module Dinbrief
   class Letter < Prawn::Document
 
     def self.letter(*args)
-      self.generate(*args) do |letter|
+      Dinbrief::Letter.generate(*args) do |letter|
+        puts letter.class
         yield(letter.letter_builder)
-        letter.draw_info
-        letter.draw_return_address
-        letter.draw_address
-        letter.draw_body
+        letter.methods.map(&:to_s).select{|m|m.start_with?("typeset_")}.each do |m|
+          puts(m)
+          letter.send(m)
+        end
       end
     end
 
-    attr_accessor :letter_builder
-
-    def initialize(opts={})
-      super(DocumentDefaults.merge(opts))
-      @letter_builder = LetterBuilder.new(self)
+    def letter_builder()
+      @letter_builder ||= LetterBuilder.new(self)
     end
 
     def lb_get(nam)
-      @letter_builder.instance_variable_get(nam)
+      @letter_builder.instance_variable_get("@#{nam}")
     end
   end
 end
 
 
-require 'dinbrief/version'
-require 'dinbrief/constants'
-require 'dinbrief/letter_builder'
-require 'dinbrief/draw_methods'
+require 'dinbrief/letter/constants'
+require 'dinbrief/letter/typeset_methods'
