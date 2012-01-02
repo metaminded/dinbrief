@@ -1,8 +1,8 @@
 # encoding: utf-8
 
-require '../lib/dinbrief'
+gem 'dinbrief', :path => '../'
 
-Dinbrief.letter('hello.pdf') do |db| 
+Dinbrief.letter('hello.pdf') do |db|
   db.return_address 'metaminded UG * Ulmer Straße 176 * 73233 Aalen'
   db.oursign        "PH"
   db.yoursign       "MZ"
@@ -14,5 +14,8 @@ Dinbrief.letter('hello.pdf') do |db|
   db.subject        "Hooooray!"
   db.address        "ropa GmbH & Co. KG\n-- Herrn Marco Zapf --\nGoethestraße 5\n77624 Schwäbisch Gmünd\nGERMANY"
   db.subject        "Frohe Weihnachten von metaminded!"
+  db.body <<-TEXT
+  ....
+  TEXT
 end
 

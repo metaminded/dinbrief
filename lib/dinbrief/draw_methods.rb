@@ -1,3 +1,5 @@
+#encoding: utf-8
+
 class Dinbrief
   def draw_info
     info = [:yoursign, :yourmessage, :oursign, :ourmessage,
