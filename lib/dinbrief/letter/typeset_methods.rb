@@ -25,17 +25,17 @@ class Dinbrief::Letter
       :at => [return_address_x, return_address_y],
       :size => return_address_fontsize
     )
-    # TODO: Fix the not-drawing of the line
+    return unless show_return_address_rule?
+    line_width return_address_rule_linewidth
     line(
       [return_address_rule_x, return_address_rule_y],
-      [return_address_rule_x + return_address_rule_width, return_address_rule_y] #,
-      #:line_width => return_address_rule_linewidth
-    ) if show_return_address_rule?
+      [return_address_rule_x + return_address_rule_width, return_address_rule_y]
+    )
+    stroke
   end
 
   def typeset_marks
-    line_width(2)
-
+    line_width(0.2)
     if show_fold_tics?
       line([fold_mark_x, fold_mark_1_y], [fold_mark_x+fold_mark_width, fold_mark_1_y])
       line([fold_mark_x, fold_mark_2_y], [fold_mark_x+fold_mark_width, fold_mark_2_y])
@@ -43,6 +43,7 @@ class Dinbrief::Letter
     if show_punch_tic?
       line([punch_mark_x, punch_mark_y], [punch_mark_x+punch_mark_width, punch_mark_y])
     end
+    stroke
   end
 
   def typeset_address
@@ -57,6 +58,16 @@ class Dinbrief::Letter
   end
 
   def typeset_body
+    move_down 80.mm
+    text <<-TEXT
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    TEXT
   end
+
 end

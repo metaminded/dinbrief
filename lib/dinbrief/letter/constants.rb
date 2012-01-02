@@ -23,23 +23,23 @@ class Dinbrief::Letter
     :fold_mark_2_y    => 210.mm,
     :fold_mark_x      => 5.mm,
     :fold_mark_width  => 10.mm,
-    :punch_mark_y     => 192.mm,
+    :punch_mark_y     => 148.5.mm,
     :punch_mark_x     => 5.mm,
     :punch_mark_width => 10.mm,
 
     # Return Address Field
     :return_address_x          => 20.mm,
-    :return_address_y          => 297.mm - 27.mm,
+    :return_address_y          => 297.mm - 37.mm,
     :return_address_rule_x     => 20.mm,
-    :return_address_rule_y     => 297.mm - 27.mm - 5.mm,
+    :return_address_rule_y     => 297.mm - 37.mm - 3.mm,
     :return_address_rule_width => 85.mm,
-    :return_address_rule_linewidth => 5.pt,
+    :return_address_rule_linewidth => 0.5.pt,
     :return_address_fontsize   => 8.pt,
     :return_address_align      => :center,
 
     # Address Field
     :address_x          => 25.mm,
-    :address_y          => 297.mm - 27.mm - 5.mm - 2.mm,
+    :address_y          => 297.mm - 37.mm - 5.mm - 2.mm,
     :address_width      => 80.mm,
     :address_height     => 28.mm,
     :address_fontsize   => 11.pt,
@@ -47,7 +47,7 @@ class Dinbrief::Letter
 
     # Header
     :info_block_x        => 125.mm,
-    :info_block_y        => 297.mm - 27.mm - 5.mm,
+    :info_block_y        => 297.mm - 37.mm - 5.mm,
     :info_block_width    => 75.mm,
     :info_block_fontsize => 10.pt,
 

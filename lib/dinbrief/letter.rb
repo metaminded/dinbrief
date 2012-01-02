@@ -9,9 +9,10 @@ module Dinbrief
         puts letter.class
         yield(letter.letter_builder)
         letter.methods.map(&:to_s).select{|m|m.start_with?("typeset_")}.each do |m|
-          puts(m)
+          next if m=='typeset_body'
           letter.send(m)
         end
+        letter.typeset_body
       end
     end
 
@@ -24,7 +25,6 @@ module Dinbrief
     end
   end
 end
-
 
 require 'dinbrief/letter/constants'
 require 'dinbrief/letter/typeset_methods'
