@@ -1,6 +1,6 @@
 #encoding: utf-8
 
-class Dinbrief
+class Dinbrief::Letter
   def draw_info
     info = [:yoursign, :yourmessage, :oursign, :ourmessage,
     :name, :phone, :fax, :email].map do |nam|

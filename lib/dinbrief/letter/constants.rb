@@ -1,6 +1,6 @@
 #encoding: utf-8
 
-class Dinbrief
+class Dinbrief::Letter
 
   DocumentDefaults = {                # The following options are available (with the default values marked in [])
     :page_size          => 'A4',      # One of the Document::PageGeometry sizes [LETTER]

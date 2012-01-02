@@ -1,22 +1,24 @@
-DINBRIEF_VERSION = "0.9.0"
+# -*- encoding: utf-8 -*-
+$:.push File.expand_path("../lib", __FILE__)
+require "dinbrief/version"
 
-Gem::Specification.new do |spec|
-  spec.name          = "dinbrief"
-  spec.version       = DINBRIEF_VERSION
-  spec.platform      = Gem::Platform::RUBY
-  spec.summary       = "DIN Brief gem for Prawn"
-  spec.files         = `git ls-files`.split("\n")
-  spec.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  spec.rdoc_options  = ['--charset=UTF-8']
-  spec.require_path  = "lib"
-  spec.required_ruby_version = '>= 1.9.2'
-  spec.required_rubygems_version = ">= 1.3.6"
-  spec.authors       = ["Peter Horn"]
-  spec.email         = ["ph@metaminded.com"]
-  spec.rubyforge_project = "dinbrief"
-  spec.add_dependency('prawn', '>=1.0.0.rc1')
-  spec.homepage      = "https://github.com/provideal/dinbrief"
-  spec.description   = <<-END_DESC
-    DIN Brief gem for Prawn. Creating letters that confirm to the DIN specifications. For Ruby.
-  END_DESC
+Gem::Specification.new do |s|
+  s.name        = "dinbrief"
+  s.version     = Dinbrief::VERSION
+  s.authors     = ["Peter Horn"]
+  s.email       = ["peter.horn@provideal.net"]
+  s.homepage    = ""
+  s.summary     = %q{DIN Letter gem for Prawn}
+  s.description = %q{DIN Brief gem for Prawn. Creating letters that confirm to the DIN specifications. For Ruby.}
+
+  s.rubyforge_project = "dinbrief"
+
+  s.files         = `git ls-files`.split("\n")
+  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.require_paths = ["lib"]
+
+  # specify any dependencies here; for example:
+  s.add_development_dependency "prawn", "1.0.0.rc1"
+  # s.add_runtime_dependency "rest-client"
 end

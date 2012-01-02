@@ -1,15 +1,15 @@
 #encoding: utf-8
 
-class Dinbrief
+module Dinbrief
   class LetterBuilder
-    
+
     def initialize(letter=nil)
       @letter = letter
     end
-    
+
     [
       :body, :subject, :header, :return_address, :address,
-      :yoursign, :yourmessage, :oursign, :ourmessage, 
+      :yoursign, :yourmessage, :oursign, :ourmessage,
       :name, :phone, :fax, :email,
       :date
     ].each do |nam|
@@ -17,6 +17,6 @@ class Dinbrief
         instance_variable_set("@#{nam}", block_given? ? block : s)
       end
     end
-    
+
   end
 end

@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-gem 'dinbrief', :path => '../'
+require 'dinbrief'
 
 Dinbrief.letter('hello.pdf') do |db|
   db.return_address 'metaminded UG * Ulmer Straße 176 * 73233 Aalen'
