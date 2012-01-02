@@ -47,17 +47,20 @@ class Dinbrief::Letter
 
     # Header
     :info_block_x        => 125.mm,
-    :info_block_y        => 297.mm - 37.mm - 5.mm,
+    :info_block_y        => 297.mm - 37.mm,
     :info_block_width    => 75.mm,
     :info_block_fontsize => 10.pt,
 
     # Date
     :date_x        => 125.mm,
-    :date_y        => 297.mm - 72.mm,
+    :date_y        => 297.mm - 77.mm,
     :date_fontsize => 10.pt,
 
     # Subject
-    :subject_x     => 1
+    :subject_x        => 20.mm,
+    :subject_y        => 210.mm,
+    :subject_fontsize => 11.pt,
+    :subject_style    => :bold
   }
 
   MeasurementDefaults.each do |n,v|
