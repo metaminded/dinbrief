@@ -6,13 +6,11 @@ module Dinbrief
 
     def self.letter(filename,options={},&block)
       self.generate(filename, DocumentDefaults.merge(options)) do |letter|
-        puts letter.class
         yield(letter.letter_builder)
         letter.meta_header()
         letter.meta_footer()
         letter.methods.map(&:to_s).select{|m|m.start_with?("typeset_")}.each do |m|
           next if m=='typeset_body'
-          puts m
           letter.send(m)
         end
         letter.typeset_body
