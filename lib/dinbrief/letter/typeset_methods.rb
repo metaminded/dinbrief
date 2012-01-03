@@ -1,6 +1,9 @@
 #encoding: utf-8
 
 class Dinbrief::Letter
+  #
+  # typeset info block (sign, name, phone...)
+  #
   def typeset_info
     info = [:yoursign, :yourmessage, :oursign, :ourmessage,
     :name, :phone, :fax, :email].map do |nam|
@@ -19,12 +22,19 @@ class Dinbrief::Letter
     )
   end
 
+  #
+  # typeset rerturn address above address field
+  #
   def typeset_return_address
     return unless lb_get(:return_address)
-    text_box(lb_get(:return_address),
-      :at => [return_address_x, return_address_y],
-      :size => return_address_fontsize
-    )
+    bounding_box([return_address_x, return_address_y],
+      :width => return_address_width
+    ) do
+      text(lb_get(:return_address),
+        :size => return_address_fontsize,
+        :align => return_address_align
+      )
+    end
     return unless show_return_address_rule?
     line_width return_address_rule_linewidth
     line(
@@ -34,6 +44,9 @@ class Dinbrief::Letter
     stroke
   end
 
+  #
+  # draw the fold- and punchmarks
+  #
   def typeset_marks
     line_width(0.2)
     if show_fold_tics?
@@ -46,17 +59,22 @@ class Dinbrief::Letter
     stroke
   end
 
+  #
+  # typeset the recipients address
+  #
   def typeset_address
     raise "An address should be given." unless lb_get(:address)
-    text_box(lb_get(:address),
-      :at => [address_x, address_y],
+    bounding_box([address_x, address_y],
       :width => address_width,
       :height => address_height,
       :valign => address_valign,
-      :size => address_fontsize
-    )
+    ) do
+      text(lb_get(:address),
+        :size => address_fontsize
+      )
+    end
   end
-  
+
   def typeset_subject
     return unless lb_get(:subject)
     text_box(lb_get(:subject),
@@ -67,8 +85,19 @@ class Dinbrief::Letter
   end
 
   def typeset_body
-    move_down 85.mm
-    text lb_get(:body)
+    gbody = lb_get(:body)
+    raise "A body should be given." unless gbody
+    move_cursor_to bounds.height
+    move_down body_preskip
+    if gbody.respond_to?(:call)
+      font_size(body_fontsize)
+      #font_style(body_style)
+      gbody.call(self)
+    else
+      text(gbody.strip,
+        :size => body_fontsize,
+        :style => body_style
+      )
+    end
   end
-
 end

@@ -8,14 +8,18 @@ module Dinbrief
     end
 
     [
-      :body, :subject, :header, :return_address, :address,
+      :subject, :header, :return_address, :address,
       :yoursign, :yourmessage, :oursign, :ourmessage,
       :name, :phone, :fax, :email,
       :date
     ].each do |nam|
       define_method nam do |s|
-        instance_variable_set("@#{nam}", block_given? ? block : s)
+        instance_variable_set("@#{nam}", s)
       end
+    end
+
+    def body(b=nil, &block)
+      @body = block_given? ? block : b
     end
 
   end
