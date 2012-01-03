@@ -28,8 +28,8 @@ class Dinbrief::Letter
         text_box(%{To replace this default header by yours,
           just implement a 'header' function in your Dinbrief::Letter
           subclass and draw whatever you like.
-          There, you are inside this bordered box with [0,0] being the
-          lower left corner.},
+          There, you are inside this bordered box with [0,0] being
+          the lower left corner.},
           :at => [85.mm, 35.mm],
           :width => 90.mm,
           :align => :left,
@@ -56,8 +56,8 @@ class Dinbrief::Letter
       else
         line_width 0.1.pt
         stroke_bounds
-        text_box(%{To replace this default footer by yours, just implement a 'footer' function in your Dinbrief::Letter
-          subclass and draw whatever you like. There, you are inside this bordered box with [0,0] being the lower left corner.},
+        text_box(%{To replace this default footer by yours, just implement a 'footer' function in your Dinbrief::Letter subclass and draw whatever you like. There, you are inside this bordered box with [0,0] being the lower left corner.
+          © 2011–#{Time.now.year} Peter Horn, metaminded UG},
           :at => [20.mm, 12.mm],
           :width => 140.mm,
           :align => :center,
