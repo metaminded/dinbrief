@@ -2,7 +2,7 @@ h1. DIN Brief gem for prawn.
 
 h2. Mission Objective
 
-This gem tries to make producing letters from Ruby apps simpler. The resulting letter mostly meet the <a href="http://de.wikipedia.org/wiki/DIN_5008" target="_blank">DIN 2008</a> standard.
+This gem tries to make producing letters from Ruby apps simpler. The resulting letter mostly meet the <a href="http://de.wikipedia.org/wiki/DIN_5008" target="_blank">DIN 5008</a> standard.
 
 It is (mainly) a semantic DSL on top of <a href="http://prawn.majesticseacreature.com/" target="_blank">Prawn 1.x</a>.
 
