@@ -117,7 +117,7 @@ The result then looks a little bit like this:
 
 <img src="https://github.com/provideal/dinbrief/raw/master/example/example.png" />
 
-Almost every property of an element is defined in <tt>lib/dinbrief/letter/constants.rb</tt>, and can be overridden in you subclass.
+Almost every property of an element is defined in <tt>lib/dinbrief/letter/constants.rb</tt>, and can be overridden in your subclass.
 
 h2. Disclaimer
 
