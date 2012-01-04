@@ -79,6 +79,8 @@ MyLetter.letter('more_serious.pdf') do |db|
       Best Regards,
     }
 
+    letter.image(File.join(File.dirname(__FILE__), "signature.png"), :fit => [3.cm, 3.cm])
+
   end
 end
 

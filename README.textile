@@ -1,0 +1,147 @@
+h1. DIN Brief gem for prawn.
+
+h2. Mission Objective
+
+This gem tries to make producing letters from Ruby apps simpler. The resulting letter mostly meet the <a href="http://de.wikipedia.org/wiki/DIN_5008" target="_blank">DIN 2008</a> standard.
+
+It is (mainly) a semantic DSL on top of <a href="http://prawn.majesticseacreature.com/" target="_blank">Prawn 1.x</a>.
+
+The name <i>dinbrief</i> was chosen as a tribute to the <a href="http://ctan.org/tex-archive/macros/latex/contrib/dinbrief" target="_blank">dinbrief LaTeX package</a>, which it replaces in my projects.
+
+h2. Example
+
+To get the headers and footers right for your company, you should subclass <tt>Dinbrief::Letter</tt>:
+
+<pre>
+  class MyLetter < Dinbrief::Letter
+    # define a header
+    def header
+      image(File.join("my_logo_.png"),
+        :at => [0.mm, 35.mm],
+        :fit => [80.mm, 22.mm]
+      )
+      text_box(%{My Company
+        Some Road 23
+        12345 Rubycity
+
+        www.my-company.com
+      },
+        :at => [105.mm, 35.mm],
+        :width => 85.mm,
+        :align => :left,
+        :size => 10.pt
+      )
+    end
+
+    # define a footer
+    def footer
+      text_box(%{My Company Ltd. – Some Road 23 – 12345 Rubycity
+        more infos as requred by law
+      },
+        :at => [20.mm, 12.mm],
+        :width => 140.mm,
+        :align => :center,
+        :size => 8.pt,
+      )
+    end
+  end
+</pre>
+
+(Note: If you don't implement these functions you'll get some sample header and footer with additional information.)
+
+Then, you can use this class to actually typeset your letters:
+
+<pre>
+  MyLetter.letter('more_serious.pdf') do |db|
+    db.return_address 'metaminded UG – Ulmer Straße 176 – 73233 Aalen'
+    db.oursign        "PH"
+    db.yoursign       "DHH"
+    db.yourmessage    "24.12.2011"
+    db.name           "Dr. Peter Horn"
+    db.phone          "05604 - 919937"
+    db.fax            "05604 - 919938"
+    db.email          "ph@metaminded.com"
+    db.address        "David Heinemeier-Hansson\n37signals, LLC\n30 North Racine Avenue #200\nChicago, Illinois 60607\nUSA"
+    db.subject        "Thanks a lot for giving us Rails"
+    db.body <<-TEXT
+      Dear David and all you colleagues,
+
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+      ...
+
+      Curabitur ullamcorper ultricies nisi. Nam eget dui.
+
+      Best Regards,
+    TEXT
+  end
+</pre>
+
+But, as always, things may be more complicated, and you may want to add fancy pdf things or generate the letter (from, e.g., an order object), so you can give a block to the body:
+
+<pre>
+  MyLetter.letter('more_serious.pdf') do |db|
+    db.return_address 'metaminded UG – Ulmer Straße 176 – 73233 Aalen'
+    # ... as above ...
+    db.subject        "Thanks a lot for giving us Rails"
+    db.body do |letter|
+      letter.text %{Dear David and all you colleagues,
+
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+        To impress people, I add a useless table:
+        }
+
+      letter.table [["Animal", "Programming Language", "coincidence"],
+        ["Penguin",  "C",      "213" ],
+        ["Platypus", "ObjC",   "143" ],
+        ["Cat",      "Ruby",   "47"  ],
+        ["Dog",      "Python", "23"  ],
+        ["Olm",      "PHP",    "876" ]
+      ]
+
+      letter.text %{
+        Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum.
+
+        Curabitur ullamcorper ultricies nisi. Nam eget dui.
+
+        Best Regards,
+      }
+
+      letter.image("signature.png", :fit => [3.cm, 3.cm])
+    end
+  end
+</pre>
+
+The result then looks a little bit like this:
+
+<img src="https://github.com/provideal/tabulatr/raw/master/example/example.png" />
+
+Almost every property of an element is defined in <tt>lib/dinbrief/letter/constants.rb</tt>, and can be overridden in you subclass.
+
+h2. Disclaimer
+
+This is pretty much work-in-progress-without-reasonable-documentation. So if you use it, don't complain ;)
+
+Nevertheless, bug reports and improvements are highly appreciated:
+
+h2. Contributing to dinbrief
+
+* Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
+* Check out the <a href="https://github.com/provideal/dinbrief/issues">issue tracker</a> to make sure someone already hasn't requested it and/or contributed it
+* Fork the project
+* Start a feature/bugfix branch
+* Commit and push until you are happy with your contribution
+* Please try not to mess with the Rakefile, version, or history. If you want to have your own version, or is otherwise necessary, that is fine, but please isolate to its own commit so I can cherry-pick around it.
+* Feel free to send a pull request if you think others (me, for example) would like to have your change incorporated into future versions of dinbrief.
+
+h2. License
+
+Copyright (c) 2011-2012 Peter Horn, <a href="http://www.metaminded.com" target="_blank">metaminded UG</a>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+

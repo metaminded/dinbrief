@@ -28,7 +28,8 @@ class Dinbrief::Letter
   def typeset_return_address
     return unless lb_get(:return_address)
     bounding_box([return_address_x, return_address_y],
-      :width => return_address_width
+      :width => return_address_width,
+      :height => 5.mm
     ) do
       text(lb_get(:return_address),
         :size => return_address_fontsize,

@@ -20,7 +20,7 @@ class Dinbrief::Letter
   MeasurementDefaults = {
     # Folding Marks
     :fold_mark_1_y    => 87.mm,
-    :fold_mark_2_y    => 192.mm,
+    :fold_mark_2_y    => -105.mm,
     :fold_mark_x      => 5.mm,
     :fold_mark_width  => 5.mm,
     :punch_mark_y     => 148.5.mm,
@@ -29,9 +29,9 @@ class Dinbrief::Letter
 
     # Return Address Field
     :return_address_x          => 20.mm,
-    :return_address_y          => 297.mm - 45.mm,
+    :return_address_y          => -45.mm - 10.mm,
     :return_address_rule_x     => 20.mm,
-    :return_address_rule_y     => 297.mm - 45.mm - 3.mm,
+    :return_address_rule_y     => -45.mm - 14.mm,
     :return_address_rule_width => 85.mm,
     :return_address_rule_linewidth => 0.5.pt,
     :return_address_fontsize   => 8.pt,
@@ -40,33 +40,33 @@ class Dinbrief::Letter
 
     # Address Field
     :address_x          => 25.mm,
-    :address_y          => 297.mm - 45.mm - 5.mm - 2.mm,
+    :address_y          => -45.mm - 17.mm,
     :address_width      => 80.mm,
-    :address_height     => 38.mm,
+    :address_height     => 28.mm,
     :address_fontsize   => 10.pt,
-    :address_valign     => :top,
+    :address_valign     => :center,
 
-    # Header
+    # Info Block
     :info_block_x        => 125.mm,
-    :info_block_y        => 297.mm - 45.mm,
+    :info_block_y        => -45.mm,
     :info_block_width    => 75.mm,
     :info_block_fontsize => 9.pt,
 
     # Date
     :date_x        => 125.mm,
-    :date_y        => 297.mm - 77.mm,
+    :date_y        => -87.mm,
     :date_fontsize => 10.pt,
 
     # Subject
     :subject_x        => 25.mm,
-    :subject_y        => 210.mm,
+    :subject_y        => - 105.mm + 2.mm,
     :subject_fontsize => 11.pt,
     :subject_style    => :bold,
 
     # Body
     :body_fontsize => 10.pt,
     :body_style    => nil,
-    :body_preskip  => 65.mm,
+    :body_preskip  => 105.mm - 30.mm + 6.mm,
 
     # Header
     :header_x      => 20.mm,
@@ -92,9 +92,14 @@ class Dinbrief::Letter
   MeasurementDefaults.each do |n,v|
     nn = n.to_s
     define_method(nn) do
-      return (MeasurementDefaults[n]-DocumentDefaults[:left_margin]) if nn.end_with?('_x')
-      return (MeasurementDefaults[n]-DocumentDefaults[:bottom_margin]) if nn.end_with?('_y')
-      MeasurementDefaults[n]
+      v = MeasurementDefaults[n]
+      if nn.end_with?('_x')
+        (v < 0 ? 210.mm : 0) + v - DocumentDefaults[:left_margin]
+      elsif nn.end_with?('_y')
+        (v < 0 ? 297.mm : 0) + v - DocumentDefaults[:bottom_margin]
+      else
+        v
+      end
     end
   end
 
