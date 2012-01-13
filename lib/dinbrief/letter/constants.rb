@@ -50,6 +50,7 @@ class Dinbrief::Letter
     :info_block_x        => 125.mm,
     :info_block_y        => -45.mm,
     :info_block_width    => 75.mm,
+    :info_block_height   => 40.mm,
     :info_block_fontsize => 9.pt,
 
     # Date

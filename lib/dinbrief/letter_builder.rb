@@ -22,5 +22,9 @@ module Dinbrief
       @body = block_given? ? block : b
     end
 
+    def info(b=nil, &block)
+      @info = block_given? ? block : b
+    end
+
   end
 end

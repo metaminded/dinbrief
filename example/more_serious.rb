@@ -55,6 +55,7 @@ MyLetter.letter('more_serious.pdf') do |db|
   db.email          "ph@metaminded.com"
   db.address        "David Heinemeier-Hansson\n37signals, LLC\n30 North Racine Avenue #200\nChicago, Illinois 60607\nUSA"
   db.subject        "Thanks a lot for giving us Rails"
+  # db.info do |box| 4.times do |i| box.text "Line #{i}", size: 10.pt end end
   db.body do |letter|
     letter.text %{Dear David and all you colleagues,
 

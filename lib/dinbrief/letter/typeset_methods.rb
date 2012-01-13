@@ -5,16 +5,28 @@ class Dinbrief::Letter
   # typeset info block (sign, name, phone...)
   #
   def typeset_info
-    info = [:yoursign, :yourmessage, :oursign, :ourmessage,
-    :name, :phone, :fax, :email].map do |nam|
-      iv = lb_get nam
-      iv ? "#{InfoTranslations[nam]}: #{iv}" : nil
-    end.compact.join("\n")
-    return unless info
-    text_box(info,
-      :at => [info_block_x, info_block_y],
-      :size => info_block_fontsize
-    )
+    bounding_box([info_block_x, info_block_y],
+      :width => info_block_width,
+      :height => info_block_height
+    ) do
+      #stroke_bounds
+      i = lb_get(:info)
+      case i
+      when String
+        text i, :size => info_block_fontsize
+      when Proc
+        i.(self)
+      else
+        info = [:yoursign, :yourmessage, :oursign, :ourmessage,
+        :name, :phone, :fax, :email].map do |nam|
+          iv = lb_get nam
+          iv ? "#{InfoTranslations[nam]}: #{iv}" : nil
+        end.compact.join("\n")
+        return unless info
+        text info,
+          :size => info_block_fontsize
+      end
+    end
     date = lb_get(:date) || Time.now.strftime("%d.%m.%Y")
     text_box("#{InfoTranslations[:date]}: #{date}",
       :at => [date_x, date_y],

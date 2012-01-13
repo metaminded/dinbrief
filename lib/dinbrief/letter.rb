@@ -4,18 +4,30 @@ module Dinbrief
 
   class Letter < Prawn::Document
 
-    def self.letter(filename,options={},&block)
-      self.generate(filename, DocumentDefaults.merge(options)) do |letter|
-        yield(letter.letter_builder)
-        letter.meta_header()
-        letter.meta_footer()
-        letter.methods.map(&:to_s).select{|m|m.start_with?("typeset_")}.each do |m|
-          next if m=='typeset_body'
-          letter.send(m)
+    def self.letter(pdf_or_filename, options={}, &block)
+      case pdf_or_filename
+      when Dinbrief::Letter
+        make_letter(pdf_or_filename, &block)
+        pdf_or_filename
+      when Prawn::Document
+        raise "Give an instance of Dinbrief::Letter to letter method."
+      when String
+        self.generate(pdf_or_filename, DocumentDefaults.merge(options)) do |pdf|
+          make_letter(pdf, &block)
         end
-        letter.typeset_body
-        letter.add_page_numbers
       end
+    end
+
+    def self.make_letter(letter, &block)
+      yield(letter.letter_builder)
+      letter.meta_header()
+      letter.meta_footer()
+      letter.methods.map(&:to_s).select{|m|m.start_with?("typeset_")}.each do |m|
+        next if m=='typeset_body'
+        letter.send(m)
+      end
+      letter.typeset_body
+      letter.add_page_numbers
     end
 
     def add_page_numbers

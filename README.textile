@@ -117,7 +117,35 @@ The result then looks a little bit like this:
 
 <img src="https://github.com/metaminded/dinbrief/raw/master/example/example.png" />
 
-Almost every property of an element is defined in <tt>lib/dinbrief/letter/constants.rb</tt>, and can be overridden in your subclass.
+If you're unhappy with the default info block, you may call <tt>info</tt> giving either a string:
+
+<pre>
+  MyLetter.letter('more_serious.pdf') do |db|
+    db.return_address 'metaminded UG – Ulmer Straße 176 – 73233 Aalen'
+    db.subject        "Thanks a lot for giving us Rails"
+    db.info           "Thing: something\nStuff: somestuff"
+    ...
+</pre>
+
+or – even more advanced – a block as with the <tt>body</tt> method:
+
+<pre>
+  MyLetter.letter('more_serious.pdf') do |db|
+    db.return_address 'metaminded UG – Ulmer Straße 176 – 73233 Aalen'
+    db.subject        "Thanks a lot for giving us Rails"
+    db.info do |box|
+      4.times do |i|
+        box.text "Line #{i}", size: 10.pt
+      end
+    end
+    ...
+</pre>
+
+inside the block, you may use virtually every prawn method. If <tt>info</tt> is given, all other info-methods (as <tt>yourmessage</tt>, <tt>oursign</tt> and the like) are disabled.
+
+h2. 
+
+Almost every property (positions, sizes, fontsizes, ...) of an element is defined in <tt>lib/dinbrief/letter/constants.rb</tt>, and can be overridden in your subclass.
 
 h2. Disclaimer
 
