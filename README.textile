@@ -115,7 +115,7 @@ But, as always, things may be more complicated, and you may want to add fancy pd
 
 The result then looks a little bit like this:
 
-<img src="https://github.com/provideal/dinbrief/raw/master/example/example.png" />
+<img src="https://github.com/metaminded/dinbrief/raw/master/example/example.png" />
 
 Almost every property of an element is defined in <tt>lib/dinbrief/letter/constants.rb</tt>, and can be overridden in your subclass.
 
@@ -128,7 +128,7 @@ Nevertheless, bug reports and improvements are highly appreciated:
 h2. Contributing to dinbrief
 
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet
-* Check out the <a href="https://github.com/provideal/dinbrief/issues">issue tracker</a> to make sure someone already hasn't requested it and/or contributed it
+* Check out the <a href="https://github.com/metaminded/dinbrief/issues">issue tracker</a> to make sure someone already hasn't requested it and/or contributed it
 * Fork the project
 * Start a feature/bugfix branch
 * Commit and push until you are happy with your contribution

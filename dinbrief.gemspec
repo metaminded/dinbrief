@@ -5,9 +5,9 @@ require "dinbrief/version"
 Gem::Specification.new do |s|
   s.name        = "dinbrief"
   s.version     = Dinbrief::VERSION
-  s.authors     = ["Peter Horn"]
-  s.email       = ["peter.horn@provideal.net"]
-  s.homepage    = "http://github.com/provideal/dinbrief"
+  s.authors     = ["Peter Horn, metaminded"]
+  s.email       = ["peter.horn@metaminded.com"]
+  s.homepage    = "http://github.com/metaminded/dinbrief"
   s.summary     = %q{DIN Letter gem for Prawn}
   s.description = %q{DIN Brief gem for Prawn. Creating letters that confirm to the DIN 5008 specifications.}
 
