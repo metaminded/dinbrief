@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
 
   # specify any dependencies here; for example:
-  s.add_development_dependency "prawn", "1.0.0.rc1"
-  # s.add_runtime_dependency "rest-client"
+  s.add_runtime_dependency "prawn", "~>2.0.2"
+  s.add_runtime_dependency 'prawn-table'
+
 end

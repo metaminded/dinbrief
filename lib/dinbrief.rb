@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 require 'prawn'
+require 'prawn/table'
 require 'prawn/measurement_extensions'
 
 module Dinbrief
