@@ -6,15 +6,20 @@ module Dinbrief
 
     def self.letter(pdf_or_filename, options={}, &block)
       case pdf_or_filename
-      when Dinbrief::Letter
-        make_letter(pdf_or_filename, &block)
-        pdf_or_filename
-      when Prawn::Document
-        raise "Give an instance of Dinbrief::Letter to letter method."
-      when String
-        self.generate(pdf_or_filename, DocumentDefaults.merge(options)) do |pdf|
-          make_letter(pdf, &block)
-        end
+        when Dinbrief::Letter
+          make_letter(pdf_or_filename, &block)
+          pdf_or_filename
+        when Prawn::Document
+          raise "Give an instance of Dinbrief::Letter to letter method."
+        when String
+          self.generate(pdf_or_filename, DocumentDefaults.merge(options)) do |pdf|
+            make_letter(pdf, &block)
+          end
+        when nil
+          letter = self.new(DocumentDefaults.merge(options)) do |pdf|
+            make_letter(pdf, &block)
+          end
+          return letter
       end
     end
 
