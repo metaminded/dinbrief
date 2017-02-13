@@ -39,15 +39,14 @@ class Dinbrief::Letter
   #
   def typeset_return_address
     return unless lb_get(:return_address)
-    bounding_box([return_address_x, return_address_y],
-      :width => return_address_width,
-      :height => 5.mm
-    ) do
-      text(lb_get(:return_address),
-        :size => return_address_fontsize,
-        :align => return_address_align
-      )
-    end
+    text_box(lb_get(:return_address),
+      at:       [return_address_x, return_address_y],
+      width:    return_address_width,
+      height:   3.mm,
+      size:     return_address_fontsize,
+      align:    return_address_align,
+      overflow: :shrink_to_fit,
+    )
     return unless show_return_address_rule?
     line_width return_address_rule_linewidth
     line(
